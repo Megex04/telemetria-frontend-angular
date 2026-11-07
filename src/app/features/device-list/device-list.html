@@ -1,0 +1,26 @@
+<h2>Dispositivos <span class="count">{{ store.onlineCount() }}/{{ store.devices().length }}</span></h2>
+
+<ul>
+  @for (device of store.devices(); track device.deviceId) {
+    <li>
+      <button
+        type="button"
+        [class.selected]="device.deviceId === store.selectedId()"
+        [attr.aria-pressed]="device.deviceId === store.selectedId()"
+        (click)="store.select(device.deviceId)"
+      >
+        <span class="dot" [class.online]="device.status === 'online'" [attr.title]="device.status"></span>
+        <span class="info">
+          <span class="id">{{ device.deviceId }}</span>
+          <span class="summary">{{ summary(device) }}</span>
+        </span>
+        <span class="ago">{{ ago(device.lastSeen, store.now()) }}</span>
+      </button>
+    </li>
+  } @empty {
+    <li class="empty">
+      Aún no hay dispositivos. Envía una lectura a <code>POST /api/telemetry</code> o ejecuta
+      <code>npm run simulate</code>.
+    </li>
+  }
+</ul>

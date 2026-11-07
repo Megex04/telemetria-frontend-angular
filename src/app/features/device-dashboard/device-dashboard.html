@@ -1,0 +1,59 @@
+@if (store.selectedDevice(); as device) {
+  <header>
+    <div class="title">
+      <h2>{{ device.deviceId }}</h2>
+      <span class="status" [class.online]="device.status === 'online'">
+        {{ device.status === 'online' ? 'En línea' : 'Sin conexión' }}
+      </span>
+    </div>
+
+    <div class="window" role="group" aria-label="Ventana de tiempo">
+      @for (w of windows; track w.seconds) {
+        <button
+          type="button"
+          [class.active]="store.windowSeconds() === w.seconds"
+          [attr.aria-pressed]="store.windowSeconds() === w.seconds"
+          (click)="store.windowSeconds.set(w.seconds)"
+        >
+          {{ w.label }}
+        </button>
+      }
+    </div>
+  </header>
+
+  <p class="meta">
+    Última lectura {{ ago(device.lastSeen, store.now()) }} · {{ device.readingCount }} lecturas
+    @if (device.latest.location; as loc) {
+      · {{ loc.lat.toFixed(4) }}, {{ loc.lng.toFixed(4) }}
+    }
+  </p>
+
+  <section class="cards" aria-label="Valores actuales">
+    @for (m of metrics(); track m.metric) {
+      <app-metric-card
+        [metric]="m.metric"
+        [value]="m.value"
+        [previous]="m.previous"
+        [color]="m.color"
+        [threshold]="store.thresholds()[m.metric]"
+      />
+    }
+  </section>
+
+  <section class="charts" aria-label="Gráficos en tiempo real">
+    @for (m of metrics(); track m.metric) {
+      <app-metric-chart
+        [metric]="m.metric"
+        [readings]="store.readings()"
+        [windowSeconds]="store.windowSeconds()"
+        [color]="m.color"
+        [threshold]="store.thresholds()[m.metric]"
+      />
+    }
+  </section>
+} @else {
+  <div class="placeholder">
+    <h2>Esperando datos</h2>
+    <p>Selecciona un dispositivo o envía lecturas al backend para ver los gráficos en vivo.</p>
+  </div>
+}

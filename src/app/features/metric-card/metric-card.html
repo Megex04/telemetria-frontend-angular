@@ -1,0 +1,24 @@
+<div class="label">
+  <span class="swatch" [style.background]="color()"></span>
+  {{ meta().label }}
+</div>
+<div class="value" [class.warning]="breach() === 'warning'" [class.critical]="breach() === 'critical'">
+  <span class="number">{{ text() }}</span>
+  @if (meta().unit) {
+    <span class="unit">{{ meta().unit }}</span>
+  }
+</div>
+<div class="foot">
+  @if (delta(); as d) {
+    <span class="delta" [class.up]="d.diff > 0" [class.down]="d.diff < 0">
+      {{ d.diff > 0 ? '▲' : d.diff < 0 ? '▼' : '■' }} {{ d.text }}
+    </span>
+  } @else {
+    <span class="delta">&nbsp;</span>
+  }
+  @if (breach()) {
+    <span class="badge" [class.warning]="breach() === 'warning'" [class.critical]="breach() === 'critical'">
+      {{ breach() === 'critical' ? 'Crítico' : 'Aviso' }}
+    </span>
+  }
+</div>

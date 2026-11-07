@@ -1,0 +1,86 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+
+  h1 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.banner {
+  padding: 8px 24px;
+  background: color-mix(in srgb, var(--critical) 16%, transparent);
+  color: var(--critical);
+  font-size: 0.8125rem;
+}
+
+.layout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+  padding: 16px;
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+
+  app-device-list {
+    flex: 0 1 auto;
+    max-height: 45%;
+  }
+  app-alert-feed {
+    flex: 1;
+  }
+}
+
+main {
+  min-width: 0;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+@media (max-width: 860px) {
+  :host {
+    height: auto;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    overflow: visible;
+
+    app-device-list,
+    app-alert-feed {
+      max-height: 260px;
+    }
+  }
+  main {
+    padding: 16px;
+    overflow: visible;
+  }
+}

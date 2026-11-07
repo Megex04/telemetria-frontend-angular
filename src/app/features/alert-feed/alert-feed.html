@@ -1,0 +1,18 @@
+<h2>Alertas <span class="count">{{ store.alerts().length }}</span></h2>
+
+<ul>
+  @for (alert of store.alerts(); track alert.id) {
+    <li>
+      <button type="button" [class]="alert.severity" (click)="store.select(alert.deviceId)">
+        <span class="top">
+          <span class="chip">{{ alert.severity === 'critical' ? 'Crítica' : 'Aviso' }}</span>
+          <span class="ago">{{ ago(alert.timestamp, store.now()) }}</span>
+        </span>
+        <span class="what">{{ alert.deviceId }} · {{ label(alert.metric) }}</span>
+        <span class="detail">{{ describe(alert) }}</span>
+      </button>
+    </li>
+  } @empty {
+    <li class="empty">Sin alertas.</li>
+  }
+</ul>

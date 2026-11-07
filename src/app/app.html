@@ -1,0 +1,21 @@
+<header class="topbar">
+  <h1>Telemetría en tiempo real</h1>
+  <div class="actions">
+    <app-connection-badge />
+    <app-theme-toggle />
+  </div>
+</header>
+
+@if (store.error(); as message) {
+  <div class="banner" role="alert">{{ message }}</div>
+}
+
+<div class="layout">
+  <aside>
+    <app-device-list />
+    <app-alert-feed />
+  </aside>
+  <main>
+    <app-device-dashboard />
+  </main>
+</div>

@@ -1,0 +1,16 @@
+<header>
+  <h3>
+    <span class="swatch" [style.background]="color()"></span>
+    {{ meta().label }}
+  </h3>
+  @if (meta().unit) {
+    <span class="unit">{{ meta().unit }}</span>
+  }
+</header>
+
+<div class="canvas-wrap">
+  <canvas #canvas></canvas>
+  @if (!hasData()) {
+    <p class="empty">Sin datos en esta ventana</p>
+  }
+</div>

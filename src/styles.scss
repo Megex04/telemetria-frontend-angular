@@ -1,0 +1,59 @@
+// El tema lo fija `ThemeService` con `data-theme` en <html> (un script en index.html lo
+// aplica antes del primer render para evitar el parpadeo).
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0b0f19;
+  --surface: #131929;
+  --surface-hover: #1b2236;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --text: #e7eaf3;
+  --text-muted: #8b93a7;
+  --ok: #34d399;
+  --warning: #fbbf24;
+  --critical: #f87171;
+  --radius: 14px;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-hover: #eef1f8;
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.24);
+  --chart-grid: rgba(15, 23, 42, 0.07);
+  --text: #0f172a;
+  --text-muted: #5b6478;
+  --ok: #059669;
+  --warning: #b45309;
+  --critical: #dc2626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--text-muted);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
